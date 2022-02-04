@@ -1,3 +1,7 @@
+.calendar{
+    position: relative;
+}
+
 .calendar__table {
     width: 100%;
     height: calc(100vh - 128px);
@@ -9,6 +13,10 @@
     vertical-align: top;
     width: 14.29%;
     height: 20%;
+}
+
+.calendar__table td.is-today{
+    background-color: #f3f3f3;
 }
 
 .calendar__table.calendar__table--6weeks td {
@@ -27,4 +35,27 @@ font-size: 1.3em;
 
 .calendar__othermonth .calendar__day{
 opacity:0.3 ;
+}
+
+.calendar__button{
+    display: block;
+    width: 55px;
+    height: 55px;
+    line-height: 55px;
+    text-align: center;
+    color: white;
+    font-size: 30px;
+    background-color: #007bff;
+    border-radius: 50%;
+    position: absolute;
+    bottom: 30px;
+    right: 30px;
+    text-decoration: none;
+    transition: transform 0.3s;
+}
+
+.calendar__button:hover{
+    text-decoration: none;
+    color: #fff;
+    transform: scale(1.2);
 }

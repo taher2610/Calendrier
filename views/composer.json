@@ -1,0 +1,17 @@
+{
+    "name": "taher/tuto-calendar",
+    "authors": [
+        {
+            "name": "Taher",
+            "email": "taher.benismail@gmail.com"
+
+        }
+    ],
+"autoload": {
+    "psr-4": {
+        "Calendar\\": "src/Calendar",
+        "App\\": "src/App"
+    }
+    },
+    "require": {}
+}

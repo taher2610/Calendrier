@@ -1,6 +1,6 @@
 <?php
 
-namespace App\date;
+namespace Calendar;
 class Month {
 public $days = ['Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi','Dimanche'];    
 private $months = ['Janvier','Février','Mars','Avril','Mai','Juin','Juillet','Aout','Séptembre','Octobre','Novembre','Décembre'];
