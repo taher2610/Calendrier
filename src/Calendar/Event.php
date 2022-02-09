@@ -1,5 +1,5 @@
 <?php
-
+namespace App;
 class Event {
 
     private $id;
@@ -8,7 +8,7 @@ class Event {
     private $start;
     private $end;
 
-    public function getId();int{
+    public function getId():int {
         return $this->id;
     }
     public function getName():string{
@@ -17,22 +17,22 @@ class Event {
     public function getDescription():?string{
         return $this->description;
     }
-    public function getStart():DateTime{
+    public function getStart():\DateTime{
         return new \DateTime ($this->start);
     }
-    public function getEnd():DateTime{
+    public function getEnd():\DateTime{
         return new \DateTime ($this->end);
     }
     public function setName(string $name){
         $this->name=$name;
     }
-    public function setDescription(string $description)
+    public function setDescription(string $description){
         $this->description=$description;
     }
-    public function setStart(string $start)
+    public function setStart(string $start){
         $this->start=$start;
     }
-    public function setEnd(string $end)
+    public function setEnd(string $end){
         $this->end=$end;
     }
         

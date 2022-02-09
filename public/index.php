@@ -1,11 +1,14 @@
     <?php 
-        require '../src/Calendar/month.php';
         require '../src/Calendar/bootstrap.php';
+        require '../src/Calendar/month.php';
+        
         require '../src/Calendar/events.php';
        
 
         $pdo = get_pdo();
-        $events=new Calendar\events($pdo);
+        $pdo = pdo_connect_mysql();
+
+        $events=new App\events($pdo);
         $month=new Calendar\Month($_GET['month'] ?? null,$_GET['year'] ?? null);
         $start=$month->getStartingDay()->modify('last monday');
         $weeks=$month->getWeeks();
@@ -45,7 +48,7 @@
                         <a class="calendar__day" href="add.php?date=<?= $date->format('Y-m-d'); ?>"><?= $date->format('d'); ?></a>
                         <?php foreach ($eventsForDay as $event): ?>
                         <div class="calendar__event">    
-                        <?= (new DateTime($event['start']))->format('H:i') ?> - <a href="/edit.php?id=<?= $event['id']; ?>"> <?= h($event['name']); ?></a>
+                        <?= (new DateTime($event['start']))->format('H:i') ?> - <a href="edit.php?id=<?= $event['id']; ?>"> <?= $event['name']; ?></a>
                         
                         </div>
                         <?php endforeach; ?>
@@ -57,7 +60,7 @@
     </table>
 
 
-    <a href="/add.php" class="calendar__button">+</a>
+    <a href="add.php" class="calendar__button">+</a>
     </div>
    
 <?php require '../views/footer.php'; ?>

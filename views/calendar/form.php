@@ -1,11 +1,5 @@
-<?php if (!empty($errors)): ?>
-<div class="alert alert-danger">
-    Merci de corrigés vos erreurs
-</div>
- <?php endif; ?>  
 
-<h1>Ajouter un évènement</h1>
-<form action="" method="post" class="form">
+
     <div class="row">
         <div class="col-sm-6">
             <div class="form-group">

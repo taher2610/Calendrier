@@ -1,14 +1,15 @@
 <?php 
         require '../src/Calendar/bootstrap.php';
+        require '../src/Calendar/events.php';
+        require '../src/Calendar/EventValidator.php';
         
-        $pdo=get_pdo();
-        $events=new Calendar\events($pdo);
+        $pdo = pdo_connect_mysql();
+        $events=new App\events($pdo);
         $errors=[];
-        if(!isset($_GET['id'])){
-            e404();
-        }
+        
         try{
-        $event=$events->find($_GET['id']);
+        $event=$events->find($_GET['id']?? null);
+        
         }catch(\Exception $e){
             e404();
         }
@@ -17,38 +18,41 @@
             'date'           => $event->getStart()->format('Y-m-d'),
             'start'          => $event->getStart()->format('H:i'),
             'end'            => $event->getEnd()->format('H:i'),
-            'description'    => $event->getDescription();
+            'description'    => $event->getDescription()
         ];
-
+        
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $data=$_POST;
             $errors=[];
-            $validator = new Calendar\EventValidator();
+            $validator = new App\EventValidator;
             $errors = $validator->validates($_POST);
             if (empty($errors)){
-                $event = new \Calendar\Event();
+                $event = new App\Event();
+                //var_dump()
                 $events->hydrate($event,$data);
                 $events->update($event);
                 header('Location: /index?succes=1');
                 exit();
             }
-
+        }
+        
+    
         render('header',['title'=>$event->getName()]);
-    ?>
+?>
     
     <div class="container">
-    <h1>Editer l'évènement<small><?= h($event['name']);?></small></h1>
+    <h1>Editer l'évènement<small> <?= h($event->getName());?></small></h1>
     <form action="" method="post" class="form">
-    <?php render('calendar/form',['data'=>$data,'errors'=>$errors]); ?>
-
+        <?php render('calendar/form',['data'=>$data,'errors'=>$errors]); ?>
+        
         <div class="form-group">
-            <button class="btn btn-primary">Modifierl'évènement</button>
+            <br>
+            <button class="btn btn-primary">Modifier l'évènement</button>
         </div>
     </form>
     </div>
-  <?php render('footer') ; ?>
+<?php render('footer') ; ?>
     
    
     
 <?php require '../views/footer.php'; ?>
-    

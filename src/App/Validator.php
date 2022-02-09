@@ -16,11 +16,13 @@ public function validates (array $data){
     return $this->errors;
 }
 
-public function validate(string $field,string $method, ...$parameters){
-    if(§isset ($this->data[$field])){
+public function validate(string $field,string $method, ...$parameters):bool{
+    if(!isset ($this->data[$field])){
         $this->errors[$field] = "Le champs $field n'est pas rempli";
+        return false;
     } else {
-        call_user_func([$this,$method],$field,...$parameters);
+        return call_user_func([$this,$method],$field,...$parameters);
+
     }
 }
 
@@ -49,7 +51,7 @@ public function time (string $field): bool{
 }
 
 public function beforeTime (string $startField, string $endField){
-    if($this->time($startField) && $this($endField)){
+    if($this->time($startField) && $this->time($endField)){
     $start = \DateTime::createFromFormat('H:i',$this->data[$startField]);
     $end = \DateTime::createFromFormat('H:i',$this->data[$endField]);
     if ($start->getTimestamp() > $end->getTimestamp()){
